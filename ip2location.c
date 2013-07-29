@@ -82,6 +82,11 @@ static void php_ip2location_init_globals(zend_ip2location_globals *ip2location_g
 }
 /* }}} */
 
+#define PHP_IP2LOCATION_DB_CHECK \
+        if( IP2LOCATION_G(ip2location_ptr) == NULL ) { \
+			php_error_docref(NULL TSRMLS_CC, E_WARNING, "open db file with ip2location_open() before using this function"); \
+			RETURN_FALSE; \
+        }
 
 /* {{{ PHP_MINIT_FUNCTION
  *  */
@@ -173,11 +178,9 @@ PHP_FUNCTION(ip2location_get_country_short)
         char *ip_address;
         int ip_len;
         IP2LocationRecord *record = NULL;
-        
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
        
+		PHP_IP2LOCATION_DB_CHECK;
+
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
                  return;
         }
@@ -195,9 +198,7 @@ PHP_FUNCTION(ip2location_get_country_long)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
                  return;
@@ -216,9 +217,7 @@ PHP_FUNCTION(ip2location_get_region)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
                  return;
@@ -237,9 +236,7 @@ PHP_FUNCTION(ip2location_get_city)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -258,9 +255,7 @@ PHP_FUNCTION(ip2location_get_isp)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -279,9 +274,7 @@ PHP_FUNCTION(ip2location_get_latitude)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_DOUBLE(-1.0);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -300,9 +293,7 @@ PHP_FUNCTION(ip2location_get_longitude)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_DOUBLE(-1.0);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -321,9 +312,7 @@ PHP_FUNCTION(ip2location_get_domain)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -342,9 +331,7 @@ PHP_FUNCTION(ip2location_get_zipcode)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -363,9 +350,7 @@ PHP_FUNCTION(ip2location_get_timezone)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -384,9 +369,7 @@ PHP_FUNCTION(ip2location_get_netspeed)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -405,9 +388,7 @@ PHP_FUNCTION(ip2location_get_iddcode)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -426,9 +407,7 @@ PHP_FUNCTION(ip2location_get_areacode)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -447,9 +426,7 @@ PHP_FUNCTION(ip2location_get_weatherstationcode)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -468,9 +445,7 @@ PHP_FUNCTION(ip2location_get_weatherstationname)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -489,9 +464,7 @@ PHP_FUNCTION(ip2location_get_mcc)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -510,9 +483,7 @@ PHP_FUNCTION(ip2location_get_mnc)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -531,9 +502,7 @@ PHP_FUNCTION(ip2location_get_mobilebrand)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -552,9 +521,7 @@ PHP_FUNCTION(ip2location_get_elevation)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_DOUBLE(-1.0);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -573,9 +540,7 @@ PHP_FUNCTION(ip2location_get_usagetype)
         int ip_len;
         IP2LocationRecord *record = NULL;
 
-        if( IP2LOCATION_G(ip2location_ptr) == NULL ) {
-                RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
-        }
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -593,6 +558,8 @@ PHP_FUNCTION(ip2location_get_all)
         char *ip_address;
         int ip_len;
         IP2LocationRecord *record = NULL;
+
+		PHP_IP2LOCATION_DB_CHECK;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
