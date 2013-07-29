@@ -587,6 +587,7 @@ PHP_FUNCTION(ip2location_get_all)
 	add_assoc_string(return_value, "mobilebrand",record->mobilebrand, 1 );
 	add_assoc_double(return_value, "elevation",record->elevation);
 	add_assoc_string(return_value, "usagetype",record->usagetype, 1 );
+	IP2Location_free_record(record);
 }
 /* }}} */
 
