@@ -126,8 +126,8 @@ PHP_FUNCTION(ip2location_open)
         char * file_path = NULL;
         int path_len; 
          
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file_path, &path_len) == FAILURE) { 
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file_path, &path_len) == FAILURE) { 
+                 return;
         }
         IP2LOCATION_G(ip2location_ptr) = IP2Location_open(file_path);
         if (IP2LOCATION_G(ip2location_ptr)) {
@@ -144,8 +144,8 @@ PHP_FUNCTION(ip2location_open)
 PHP_FUNCTION(ip2location_open_mem)
 {
         int method;
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &method) == FAILURE) { 
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &method) == FAILURE) { 
+                 return;
         }
         /*Shared memory method is not supported*/
         if( method == IP2LOCATION_FILE_IO || method == IP2LOCATION_CACHE_MEMORY || method == IP2LOCATION_SHARED_MEMORY ){
@@ -172,8 +172,8 @@ PHP_FUNCTION(ip2location_get_country_short)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
        
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
+                 return;
         }
         record = IP2Location_get_country_short(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->country_short, 1);
@@ -193,8 +193,8 @@ PHP_FUNCTION(ip2location_get_country_long)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
+                 return;
         }
         record = IP2Location_get_country_long(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->country_long, 1);
@@ -214,8 +214,8 @@ PHP_FUNCTION(ip2location_get_region)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) { 
+                 return;
         }
         record = IP2Location_get_region(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->region, 1);
@@ -235,8 +235,8 @@ PHP_FUNCTION(ip2location_get_city)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_city(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->city, 1);
@@ -256,8 +256,8 @@ PHP_FUNCTION(ip2location_get_isp)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_isp(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->isp, 1);
@@ -277,8 +277,8 @@ PHP_FUNCTION(ip2location_get_latitude)
                 RETURN_DOUBLE(-1.0);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_latitude(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_DOUBLE(record->latitude);
@@ -298,8 +298,8 @@ PHP_FUNCTION(ip2location_get_longitude)
                 RETURN_DOUBLE(-1.0);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_longitude(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_DOUBLE(record->longitude);
@@ -319,8 +319,8 @@ PHP_FUNCTION(ip2location_get_domain)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_domain(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->domain, 1);
@@ -340,8 +340,8 @@ PHP_FUNCTION(ip2location_get_zipcode)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_zipcode(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->zipcode, 1);
@@ -361,8 +361,8 @@ PHP_FUNCTION(ip2location_get_timezone)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_timezone(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->timezone, 1);
@@ -382,8 +382,8 @@ PHP_FUNCTION(ip2location_get_netspeed)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_netspeed(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->netspeed, 1);
@@ -403,8 +403,8 @@ PHP_FUNCTION(ip2location_get_iddcode)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_iddcode(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->iddcode, 1);
@@ -424,8 +424,8 @@ PHP_FUNCTION(ip2location_get_areacode)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_areacode(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->areacode, 1);
@@ -445,8 +445,8 @@ PHP_FUNCTION(ip2location_get_weatherstationcode)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_weatherstationcode(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->weatherstationcode, 1);
@@ -466,8 +466,8 @@ PHP_FUNCTION(ip2location_get_weatherstationname)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_weatherstationname(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->weatherstationname, 1);
@@ -487,8 +487,8 @@ PHP_FUNCTION(ip2location_get_mcc)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_mcc(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->mcc, 1);
@@ -508,8 +508,8 @@ PHP_FUNCTION(ip2location_get_mnc)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_mnc(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->mnc, 1);
@@ -529,8 +529,8 @@ PHP_FUNCTION(ip2location_get_mobilebrand)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_mobilebrand(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->mobilebrand, 1);
@@ -550,8 +550,8 @@ PHP_FUNCTION(ip2location_get_elevation)
                 RETURN_DOUBLE(-1.0);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_elevation(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_DOUBLE(record->elevation);
@@ -571,8 +571,8 @@ PHP_FUNCTION(ip2location_get_usagetype)
                 RETURN_STRING("First Call ip2location_open with ip address db file path.\n", 1);
         }
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
         record = IP2Location_get_usagetype(IP2LOCATION_G(ip2location_ptr), ip_address);
         RETURN_STRING(record->usagetype, 1);
@@ -589,8 +589,8 @@ PHP_FUNCTION(ip2location_get_all)
         IP2LocationRecord *record = NULL;
         zval *row;
 
-        if (ZEND_NUM_ARGS()!=1 || zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+                 return;
         }
 
         record = IP2Location_get_all(IP2LOCATION_G(ip2location_ptr), ip_address);
@@ -628,8 +628,8 @@ PHP_FUNCTION(ip2location_get_all)
  * Returns the record information */
 PHP_FUNCTION(ip2location_close)
 {
-        if (ZEND_NUM_ARGS() !=0 ) { 
-                 WRONG_PARAM_COUNT;
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "") != SUCCESS) { 
+                 return;
         }
         IP2Location_close(IP2LOCATION_G(ip2location_ptr));
         IP2LOCATION_G(ip2location_ptr) = NULL;
@@ -641,7 +641,7 @@ PHP_FUNCTION(ip2location_close)
 PHP_FUNCTION(ip2location_delete_shm)
 {
         if (ZEND_NUM_ARGS() !=0 ) { 
-                 WRONG_PARAM_COUNT;
+                 return;
         }
         IP2Location_delete_shm();
 }
