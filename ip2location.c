@@ -129,11 +129,15 @@ PHP_FUNCTION(ip2location_open)
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file_path, &path_len) == FAILURE) { 
                  return;
         }
+
+		if (IP2LOCATION_G(ip2location_ptr)) {
+			IP2Location_close(IP2LOCATION_G(ip2location_ptr));
+		}
+
         IP2LOCATION_G(ip2location_ptr) = IP2Location_open(file_path);
         if (IP2LOCATION_G(ip2location_ptr)) {
                 RETURN_TRUE; 
-        }
-        else {
+        } else {
                 RETURN_FALSE;
         }
 }
@@ -160,6 +164,8 @@ PHP_FUNCTION(ip2location_open_mem)
                 RETURN_FALSE;
         }
 }
+/* }}} */
+
 /* {{{ ip2location_get_country_short("ip_address")
  * Returns ip address's country in short */
 PHP_FUNCTION(ip2location_get_country_short)
@@ -625,7 +631,9 @@ PHP_FUNCTION(ip2location_close)
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "") != SUCCESS) { 
                  return;
         }
-        IP2Location_close(IP2LOCATION_G(ip2location_ptr));
+		if (IP2LOCATION_G(ip2location_ptr)) {
+			IP2Location_close(IP2LOCATION_G(ip2location_ptr));
+		}
         IP2LOCATION_G(ip2location_ptr) = NULL;
 }
 /* }}} */
@@ -634,7 +642,7 @@ PHP_FUNCTION(ip2location_close)
  * Returns nothing */
 PHP_FUNCTION(ip2location_delete_shm)
 {
-        if (ZEND_NUM_ARGS() !=0 ) { 
+        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "") != SUCCESS) {
                  return;
         }
         IP2Location_delete_shm();
