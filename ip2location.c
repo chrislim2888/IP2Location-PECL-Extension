@@ -587,7 +587,6 @@ PHP_FUNCTION(ip2location_get_all)
         char *ip_address;
         int ip_len;
         IP2LocationRecord *record = NULL;
-        zval *row;
 
         if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
                  return;
@@ -595,31 +594,26 @@ PHP_FUNCTION(ip2location_get_all)
 
         record = IP2Location_get_all(IP2LOCATION_G(ip2location_ptr), ip_address);
         array_init(return_value);
-        ALLOC_INIT_ZVAL(row);
-        array_init(row);
-        add_assoc_string(row, "country_short", record->country_short, 1 );
-        add_assoc_string(row, "country_long", record->country_long, 1 );
-        add_assoc_string(row, "region",record->region, 1 );
-        add_assoc_string(row, "city",record->city, 1 );
-        add_assoc_string(row, "isp",record->isp, 1 );
-        add_assoc_double(row, "latitude",record->latitude );
-        add_assoc_double(row, "longitude",record->longitude );
-        add_assoc_string(row, "domain",record->domain, 1 );
-        add_assoc_string(row, "zipcode",record->zipcode, 1 );
-        add_assoc_string(row, "timezone",record->timezone, 1 );
-        add_assoc_string(row, "netspeed",record->netspeed, 1 );
-        add_assoc_string(row, "iddcode",record->iddcode, 1 );
-        add_assoc_string(row, "areacode",record->areacode, 1 );
-        add_assoc_string(row, "weatherstationcode",record->weatherstationcode, 1 );
-        add_assoc_string(row, "weatherstationname",record->weatherstationname, 1 );
-        add_assoc_string(row, "mcc",record->mcc, 1 );
-        add_assoc_string(row, "mnc",record->mnc, 1 );
-        add_assoc_string(row, "mobilebrand",record->mobilebrand, 1 );
-        add_assoc_double(row, "elevation",record->elevation);
-        add_assoc_string(row, "usagetype",record->usagetype, 1 );
-
-        add_index_zval(return_value, 0, row);
-        printf("Test IP Address %s. We got %s \n",ip_address,record->country_short);
+        add_assoc_string(return_value, "country_short", record->country_short, 1 );
+        add_assoc_string(return_value, "country_long", record->country_long, 1 );
+        add_assoc_string(return_value, "region",record->region, 1 );
+        add_assoc_string(return_value, "city",record->city, 1 );
+        add_assoc_string(return_value, "isp",record->isp, 1 );
+        add_assoc_double(return_value, "latitude",record->latitude );
+        add_assoc_double(return_value, "longitude",record->longitude );
+        add_assoc_string(return_value, "domain",record->domain, 1 );
+        add_assoc_string(return_value, "zipcode",record->zipcode, 1 );
+        add_assoc_string(return_value, "timezone",record->timezone, 1 );
+        add_assoc_string(return_value, "netspeed",record->netspeed, 1 );
+        add_assoc_string(return_value, "iddcode",record->iddcode, 1 );
+        add_assoc_string(return_value, "areacode",record->areacode, 1 );
+        add_assoc_string(return_value, "weatherstationcode",record->weatherstationcode, 1 );
+        add_assoc_string(return_value, "weatherstationname",record->weatherstationname, 1 );
+        add_assoc_string(return_value, "mcc",record->mcc, 1 );
+        add_assoc_string(return_value, "mnc",record->mnc, 1 );
+        add_assoc_string(return_value, "mobilebrand",record->mobilebrand, 1 );
+        add_assoc_double(return_value, "elevation",record->elevation);
+        add_assoc_string(return_value, "usagetype",record->usagetype, 1 );
 }
 /* }}} */
 
