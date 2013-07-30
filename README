@@ -8,7 +8,7 @@ To compile it, you will need to have the ip2location c library (version 6.x) ins
 
 Install IP2Location C Library (on Linux/Unix)
 ---------------------------------------------
-1) Download the latest ip2location c libray at http://www.ip2loation.com/developers/c.
+1) Download the latest ip2location c libray at http://www.ip2location.com/developers/c
 2) Decompress the archive.
 3) Navigate to working directory. example, cd ip2location-c-x.x.x
 4) autoreconf -i -v --force
