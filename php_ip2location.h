@@ -19,6 +19,11 @@
 #ifndef PHP_IP2LOCATION_H
 #define PHP_IP2LOCATION_H
 
+/* The IP2Location.h checks for this but it's defined by config.w32 */
+#if defined(PHP_WIN32) && defined(HAVE_IP2LOCATION_H)
+#undef HAVE_IP2LOCATION_H
+#endif
+
 #include <IP2Location.h>
 #include <php.h>
 
