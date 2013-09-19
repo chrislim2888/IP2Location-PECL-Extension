@@ -21,6 +21,9 @@
 #include "config.h"
 #endif
 
+#include "php.h"
+#include "ext/standard/info.h"
+
 #include "php_ip2location.h"
 
 ZEND_DECLARE_MODULE_GLOBALS(ip2location)
