@@ -1,0 +1,14 @@
+// $Id$
+// vim:ft=javascript
+
+ARG_WITH("ip2location", "for ip2location support", "yes");
+
+if (PHP_IP2LOCATION == "yes") {
+	if (CHECK_LIB("IP2Location.lib", "ip2location", PHP_IP2LOCATION) &&
+			CHECK_HEADER_ADD_INCLUDE("ip2location.h", "CFLAGS_IP2LOCATION")) {
+
+		EXTENSION("ip2location", "ip2location.c");
+	} else {
+		WARNING("ip2location not enabled, headers or libraries not found");
+	}
+}
