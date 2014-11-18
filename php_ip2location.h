@@ -28,7 +28,7 @@
 #include <php.h>
 
 #define PHP_IP2LOCATION_EXTNAME "ip2location"
-#define PHP_IP2LOCATION_VERSION "6.0.0"
+#define PHP_IP2LOCATION_VERSION "6.0.3"
 
 PHP_MINIT_FUNCTION(ip2location);
 PHP_MSHUTDOWN_FUNCTION(ip2location);
