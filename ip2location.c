@@ -156,7 +156,8 @@ PHP_FUNCTION(ip2location_open)
 PHP_FUNCTION(ip2location_open_mem)
 {
 	int method;
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &method) == FAILURE) { 
+	int arg_len;
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &method, &arg_len) == FAILURE) { 
 		return;
 	}
 	/*Shared memory method is not supported*/
