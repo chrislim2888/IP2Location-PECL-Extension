@@ -132,16 +132,13 @@ PHP_MINFO_FUNCTION(ip2location)
 PHP_FUNCTION(ip2location_open)
 {
 	char * file_path = NULL;
-	int path_len; 
-
+	size_t path_len;
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &file_path, &path_len) == FAILURE) { 
 		return;
 	}
-
 	if (IP2LOCATION_G(ip2location_ptr)) {
 		IP2Location_close(IP2LOCATION_G(ip2location_ptr));
 	}
-
 	IP2LOCATION_G(ip2location_ptr) = IP2Location_open(file_path);
 	if (IP2LOCATION_G(ip2location_ptr)) {
 		RETURN_TRUE; 
@@ -155,9 +152,8 @@ PHP_FUNCTION(ip2location_open)
  * Returns the success or failure */
 PHP_FUNCTION(ip2location_open_mem)
 {
-	int method;
-	int arg_len;
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &method, &arg_len) == FAILURE) { 
+	long method;
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "l", &method) == FAILURE) { 
 		return;
 	}
 	/*Shared memory method is not supported*/
@@ -180,7 +176,7 @@ PHP_FUNCTION(ip2location_open_mem)
 PHP_FUNCTION(ip2location_get_country_short)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -189,7 +185,11 @@ PHP_FUNCTION(ip2location_get_country_short)
 		return;
 	}
 	record = IP2Location_get_country_short(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->country_short);
+#else
 	RETVAL_STRING(record->country_short, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -199,7 +199,7 @@ PHP_FUNCTION(ip2location_get_country_short)
 PHP_FUNCTION(ip2location_get_country_long)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -208,7 +208,11 @@ PHP_FUNCTION(ip2location_get_country_long)
 		return;
 	}
 	record = IP2Location_get_country_long(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->country_long);
+#else
 	RETVAL_STRING(record->country_long, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -218,7 +222,7 @@ PHP_FUNCTION(ip2location_get_country_long)
 PHP_FUNCTION(ip2location_get_region)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -227,7 +231,11 @@ PHP_FUNCTION(ip2location_get_region)
 		return;
 	}
 	record = IP2Location_get_region(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->region);
+#else
 	RETVAL_STRING(record->region, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -237,7 +245,7 @@ PHP_FUNCTION(ip2location_get_region)
 PHP_FUNCTION(ip2location_get_city)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -246,7 +254,11 @@ PHP_FUNCTION(ip2location_get_city)
 		return;
 	}
 	record = IP2Location_get_city(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->city);
+#else
 	RETVAL_STRING(record->city, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -256,7 +268,7 @@ PHP_FUNCTION(ip2location_get_city)
 PHP_FUNCTION(ip2location_get_isp)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -265,7 +277,11 @@ PHP_FUNCTION(ip2location_get_isp)
 		return;
 	}
 	record = IP2Location_get_isp(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->isp);
+#else
 	RETVAL_STRING(record->isp, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -275,7 +291,7 @@ PHP_FUNCTION(ip2location_get_isp)
 PHP_FUNCTION(ip2location_get_latitude)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -294,7 +310,7 @@ PHP_FUNCTION(ip2location_get_latitude)
 PHP_FUNCTION(ip2location_get_longitude)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -313,7 +329,7 @@ PHP_FUNCTION(ip2location_get_longitude)
 PHP_FUNCTION(ip2location_get_domain)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -322,7 +338,11 @@ PHP_FUNCTION(ip2location_get_domain)
 		return;
 	}
 	record = IP2Location_get_domain(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->domain);
+#else
 	RETVAL_STRING(record->domain, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -332,7 +352,7 @@ PHP_FUNCTION(ip2location_get_domain)
 PHP_FUNCTION(ip2location_get_zipcode)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -341,7 +361,11 @@ PHP_FUNCTION(ip2location_get_zipcode)
 		return;
 	}
 	record = IP2Location_get_zipcode(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->zipcode);
+#else
 	RETVAL_STRING(record->zipcode, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -351,7 +375,7 @@ PHP_FUNCTION(ip2location_get_zipcode)
 PHP_FUNCTION(ip2location_get_timezone)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -360,7 +384,11 @@ PHP_FUNCTION(ip2location_get_timezone)
 		return;
 	}
 	record = IP2Location_get_timezone(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->timezone);
+#else
 	RETVAL_STRING(record->timezone, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -370,7 +398,7 @@ PHP_FUNCTION(ip2location_get_timezone)
 PHP_FUNCTION(ip2location_get_netspeed)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -379,7 +407,11 @@ PHP_FUNCTION(ip2location_get_netspeed)
 		return;
 	}
 	record = IP2Location_get_netspeed(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->netspeed);
+#else
 	RETVAL_STRING(record->netspeed, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -389,7 +421,7 @@ PHP_FUNCTION(ip2location_get_netspeed)
 PHP_FUNCTION(ip2location_get_iddcode)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -398,7 +430,11 @@ PHP_FUNCTION(ip2location_get_iddcode)
 		return;
 	}
 	record = IP2Location_get_iddcode(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->iddcode);
+#else
 	RETVAL_STRING(record->iddcode, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -408,7 +444,7 @@ PHP_FUNCTION(ip2location_get_iddcode)
 PHP_FUNCTION(ip2location_get_areacode)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -417,7 +453,11 @@ PHP_FUNCTION(ip2location_get_areacode)
 		return;
 	}
 	record = IP2Location_get_areacode(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->areacode);
+#else
 	RETVAL_STRING(record->areacode, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -427,7 +467,7 @@ PHP_FUNCTION(ip2location_get_areacode)
 PHP_FUNCTION(ip2location_get_weatherstationcode)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -436,7 +476,11 @@ PHP_FUNCTION(ip2location_get_weatherstationcode)
 		return;
 	}
 	record = IP2Location_get_weatherstationcode(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->weatherstationcode);
+#else
 	RETVAL_STRING(record->weatherstationcode, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -446,7 +490,7 @@ PHP_FUNCTION(ip2location_get_weatherstationcode)
 PHP_FUNCTION(ip2location_get_weatherstationname)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -455,7 +499,11 @@ PHP_FUNCTION(ip2location_get_weatherstationname)
 		return;
 	}
 	record = IP2Location_get_weatherstationname(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->weatherstationname);
+#else
 	RETVAL_STRING(record->weatherstationname, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -465,7 +513,7 @@ PHP_FUNCTION(ip2location_get_weatherstationname)
 PHP_FUNCTION(ip2location_get_mcc)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -474,7 +522,11 @@ PHP_FUNCTION(ip2location_get_mcc)
 		return;
 	}
 	record = IP2Location_get_mcc(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->mcc);
+#else
 	RETVAL_STRING(record->mcc, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -484,7 +536,7 @@ PHP_FUNCTION(ip2location_get_mcc)
 PHP_FUNCTION(ip2location_get_mnc)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -493,7 +545,11 @@ PHP_FUNCTION(ip2location_get_mnc)
 		return;
 	}
 	record = IP2Location_get_mnc(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->mnc);
+#else
 	RETVAL_STRING(record->mnc, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -503,7 +559,7 @@ PHP_FUNCTION(ip2location_get_mnc)
 PHP_FUNCTION(ip2location_get_mobilebrand)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -512,7 +568,11 @@ PHP_FUNCTION(ip2location_get_mobilebrand)
 		return;
 	}
 	record = IP2Location_get_mobilebrand(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->mobilebrand);
+#else
 	RETVAL_STRING(record->mobilebrand, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -522,7 +582,7 @@ PHP_FUNCTION(ip2location_get_mobilebrand)
 PHP_FUNCTION(ip2location_get_elevation)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -541,7 +601,7 @@ PHP_FUNCTION(ip2location_get_elevation)
 PHP_FUNCTION(ip2location_get_usagetype)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -550,7 +610,11 @@ PHP_FUNCTION(ip2location_get_usagetype)
 		return;
 	}
 	record = IP2Location_get_usagetype(IP2LOCATION_G(ip2location_ptr), ip_address);
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(record->usagetype);
+#else
 	RETVAL_STRING(record->usagetype, 1);
+#endif
 	IP2Location_free_record(record);
 }
 /* }}} */
@@ -560,7 +624,7 @@ PHP_FUNCTION(ip2location_get_usagetype)
 PHP_FUNCTION(ip2location_get_all)
 {
 	char *ip_address;
-	int ip_len;
+	size_t ip_len;
 	IP2LocationRecord *record = NULL;
 
 	PHP_IP2LOCATION_DB_CHECK;
@@ -568,29 +632,49 @@ PHP_FUNCTION(ip2location_get_all)
 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
 		return;
 	}
-
 	record = IP2Location_get_all(IP2LOCATION_G(ip2location_ptr), ip_address);
 	array_init(return_value);
-	add_assoc_string(return_value, "country_short", record->country_short, 1 );
-	add_assoc_string(return_value, "country_long", record->country_long, 1 );
-	add_assoc_string(return_value, "region",record->region, 1 );
-	add_assoc_string(return_value, "city",record->city, 1 );
-	add_assoc_string(return_value, "isp",record->isp, 1 );
+#if PHP_MAJOR_VERSION >= 7
+	add_assoc_string(return_value, "country_short", record->country_short );
+	add_assoc_string(return_value, "country_long", record->country_long);
+	add_assoc_string(return_value, "region",record->region);
+	add_assoc_string(return_value, "city",record->city);
+	add_assoc_string(return_value, "isp",record->isp);
+	add_assoc_string(return_value, "domain",record->domain);
+	add_assoc_string(return_value, "zipcode",record->zipcode);
+	add_assoc_string(return_value, "timezone",record->timezone);
+	add_assoc_string(return_value, "netspeed",record->netspeed);
+	add_assoc_string(return_value, "iddcode",record->iddcode);
+	add_assoc_string(return_value, "areacode",record->areacode);
+	add_assoc_string(return_value, "weatherstationcode",record->weatherstationcode);
+	add_assoc_string(return_value, "weatherstationname",record->weatherstationname);
+	add_assoc_string(return_value, "mcc",record->mcc);
+	add_assoc_string(return_value, "mnc",record->mnc);
+	add_assoc_string(return_value, "mobilebrand",record->mobilebrand);
+	add_assoc_string(return_value, "usagetype",record->usagetype);
+#else
+	add_assoc_string(return_value, "country_short", record->country_short, 1);
+	add_assoc_string(return_value, "country_long", record->country_long, 1);
+	add_assoc_string(return_value, "region",record->region, 1);
+	add_assoc_string(return_value, "city",record->city, 1);
+	add_assoc_string(return_value, "isp",record->isp, 1);
+	add_assoc_string(return_value, "domain",record->domain, 1);
+	add_assoc_string(return_value, "zipcode",record->zipcode, 1);
+	add_assoc_string(return_value, "timezone",record->timezone, 1);
+	add_assoc_string(return_value, "netspeed",record->netspeed, 1);
+	add_assoc_string(return_value, "iddcode",record->iddcode, 1);
+	add_assoc_string(return_value, "areacode",record->areacode, 1);
+	add_assoc_string(return_value, "weatherstationcode",record->weatherstationcode, 1);
+	add_assoc_string(return_value, "weatherstationname",record->weatherstationname, 1);
+	add_assoc_string(return_value, "mcc",record->mcc, 1);
+	add_assoc_string(return_value, "mnc",record->mnc, 1);
+	add_assoc_string(return_value, "mobilebrand",record->mobilebrand, 1);
+	add_assoc_string(return_value, "usagetype",record->usagetype, 1);
+#endif
+
 	add_assoc_double(return_value, "latitude",record->latitude );
 	add_assoc_double(return_value, "longitude",record->longitude );
-	add_assoc_string(return_value, "domain",record->domain, 1 );
-	add_assoc_string(return_value, "zipcode",record->zipcode, 1 );
-	add_assoc_string(return_value, "timezone",record->timezone, 1 );
-	add_assoc_string(return_value, "netspeed",record->netspeed, 1 );
-	add_assoc_string(return_value, "iddcode",record->iddcode, 1 );
-	add_assoc_string(return_value, "areacode",record->areacode, 1 );
-	add_assoc_string(return_value, "weatherstationcode",record->weatherstationcode, 1 );
-	add_assoc_string(return_value, "weatherstationname",record->weatherstationname, 1 );
-	add_assoc_string(return_value, "mcc",record->mcc, 1 );
-	add_assoc_string(return_value, "mnc",record->mnc, 1 );
-	add_assoc_string(return_value, "mobilebrand",record->mobilebrand, 1 );
 	add_assoc_double(return_value, "elevation",record->elevation);
-	add_assoc_string(return_value, "usagetype",record->usagetype, 1 );
 	IP2Location_free_record(record);
 }
 /* }}} */
