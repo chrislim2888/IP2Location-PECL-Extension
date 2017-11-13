@@ -35,7 +35,7 @@ PHP_MSHUTDOWN_FUNCTION(ip2location);
 PHP_MINFO_FUNCTION(ip2location);
 
 extern zend_module_entry ip2location_module_entry;
-#define phpext_geoip_ptr &ip2location_module_entry
+#define phpext_ip2location_ptr &ip2location_module_entry
 
 
 
