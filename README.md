@@ -6,7 +6,7 @@ To compile it, you will need to have the ip2location c library (version 8.x) ins
 # Installation
 
 ### Install IP2Location C Library (on Linux/Unix)
-1. Download the latest ip2location c libray at http://www.ip2location.com/developers/c
+1. Download the latest ip2location c libray at https://www.ip2location.com/developers/c
 2. Decompress the archive.
 3. Navigate to working directory. example, cd ip2location-c-x.x.x
 4. autoreconf -i -v --force
@@ -30,8 +30,8 @@ For details installation instructions for PHP PECL extensions, please see:
 http://www.php.net/manual/en/install.pecl.php
 
 # Sample BIN Databases
-* Download free IP2Location LITE databases at [http://lite.ip2location.com](http://lite.ip2location.com)  
-* Download IP2Location sample databases at [http://www.ip2location.com/developers](http://www.ip2location.com/developers)
+* Download free IP2Location LITE databases at [https://lite.ip2location.com](https://lite.ip2location.com)  
+* Download IP2Location sample databases at [https://www.ip2location.com/developers](https://www.ip2location.com/developers)
 
 # IPv4 BIN vs IPv6 BIN
 * Use the IPv4 BIN file if you just need to query IPv4 addresses.
