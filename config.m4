@@ -1,4 +1,3 @@
-dnl $Id: config.m4 2013-June$
 dnl config.m4 for extension ip2location 
 
 dnl Base file contributed by Guruswamy Basavaiah
