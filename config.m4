@@ -38,16 +38,25 @@ if test "$PHP_IP2LOCATION" != "no"; then
 
   # --with-ip2location -> check for lib and symbol presence
   LIBNAME=IP2Location # you may want to change this
-  LIBSYMBOL=IP2Location_open_mem # you most likely want to change this
+  LIBSYMBOLOLD=IP2Location_open_mem
+  LIBSYMBOLNEW=IP2Location_set_lookup_mode
 
-  PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOL,
+  PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOLNEW,
   [
     PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $IP2LOCATION_DIR/lib, IP2LOCATION_SHARED_LIBADD)
     AC_DEFINE(HAVE_IPLOCATIONLIB,1,[ ])
   ],[
-    AC_MSG_ERROR([wrong ip2location, lib version >= 6.x.x is required or library not found])
+    PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOLOLD,
+    [
+      PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $IP2LOCATION_DIR/lib, IP2LOCATION_SHARED_LIBADD)
+      AC_DEFINE(HAVE_IPLOCATIONLIB,1,[ ])
+    ],[
+      AC_MSG_ERROR([wrong ip2location, lib version >= 6.x.x is required or library not found])
+    ],[
+      -L$IP2LOCATION_DIR/$PHP_LIBDIR
+    ])
   ],[
-    -L$IP2LOCATION_DIR/$PHP_LIBDIR 
+    -L$IP2LOCATION_DIR/$PHP_LIBDIR
   ])
 
   PHP_SUBST(IP2LOCATION_SHARED_LIBADD)
