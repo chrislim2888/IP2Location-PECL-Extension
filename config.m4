@@ -9,7 +9,7 @@ dnl Make sure that the comment is aligned:
 if test "$PHP_IP2LOCATION" != "no"; then
 
   # --with-ip2location -> check with-path
-  SEARCH_PATH="/usr/local /usr /opt/local /lib"
+  SEARCH_PATH="/usr/local /usr /opt/local"
   SEARCH_FOR="/include/IP2Location.h"
   if test -r $PHP_IP2LOCATION/$SEARCH_FOR; then
     IP2LOCATION_DIR=$PHP_IP2LOCATION
@@ -43,12 +43,12 @@ if test "$PHP_IP2LOCATION" != "no"; then
 
   PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOLNEW,
   [
-    PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $IP2LOCATION_DIR/lib, IP2LOCATION_SHARED_LIBADD)
+    PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $IP2LOCATION_DIR/$PHP_LIBDIR, IP2LOCATION_SHARED_LIBADD)
     AC_DEFINE(HAVE_IPLOCATIONLIB,1,[ ])
   ],[
     PHP_CHECK_LIBRARY($LIBNAME,$LIBSYMBOLOLD,
     [
-      PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $IP2LOCATION_DIR/lib, IP2LOCATION_SHARED_LIBADD)
+      PHP_ADD_LIBRARY_WITH_PATH($LIBNAME, $IP2LOCATION_DIR/$PHP_LIBDIR, IP2LOCATION_SHARED_LIBADD)
       AC_DEFINE(HAVE_IPLOCATIONLIB,1,[ ])
     ],[
       AC_MSG_ERROR([wrong ip2location, lib version >= 6.x.x is required or library not found])
