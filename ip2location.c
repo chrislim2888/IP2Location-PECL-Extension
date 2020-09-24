@@ -119,9 +119,26 @@ PHP_MSHUTDOWN_FUNCTION(ip2location)
  *  */
 PHP_MINFO_FUNCTION(ip2location)
 {
+	char buf[32];
+	unsigned long ver;
+
 	php_info_print_table_start();
 	php_info_print_table_header(2, "ip2location support", "enabled");
-	php_info_print_table_row(2, "version", PHP_IP2LOCATION_VERSION);
+	php_info_print_table_row(2, "extension version", PHP_IP2LOCATION_VERSION);
+#if API_VERSION_NUMERIC >= 80100
+	ver = IP2Location_api_version_number();
+#else
+	ver = IP2Location_api_version_num();
+#endif
+	snprintf(buf, sizeof(buf), "%d.%d.%d", API_VERSION_MAJOR, API_VERSION_MINOR, API_VERSION_RELEASE);
+	if (API_VERSION_NUMERIC == ver) {
+		php_info_print_table_row(2, "library version", buf);
+	} else {
+		/* display both headers/runtime versions when differ */
+		php_info_print_table_row(2, "library headers version", buf);
+		snprintf(buf, sizeof(buf), "%lu.%lu.%lu", ver / 10000, (ver / 100) % 100, ver % 100);
+		php_info_print_table_row(2, "library runtime version", buf);
+	}
 	php_info_print_table_end();
 }
 /* }}} */
