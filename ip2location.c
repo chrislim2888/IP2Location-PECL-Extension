@@ -26,37 +26,61 @@
 
 #include "php_ip2location.h"
 
+/* For PHP 8 */
+#ifndef TSRMLS_CC
+#define TSRMLS_CC
+#endif
+
 ZEND_DECLARE_MODULE_GLOBALS(ip2location)
 
 #define IP2LOCATION_RECORD 0
 
+ZEND_BEGIN_ARG_INFO_EX(ip2location_open, 0, 0, 1)
+	ZEND_ARG_INFO(0, file_path)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(ip2location_open_mem, 0, 0, 1)
+	ZEND_ARG_INFO(0, method)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(ip2location_ip_address, 0, 0, 1)
+	ZEND_ARG_INFO(0, ip_address)
+ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO_EX(ip2location_void, 0, 0, 0)
+ZEND_END_ARG_INFO()
+
 static zend_function_entry ip2location_functions_entry[] = {
-	PHP_FE(ip2location_open, NULL)
-	PHP_FE(ip2location_open_mem, NULL)
-	PHP_FE(ip2location_get_country_short, NULL)
-	PHP_FE(ip2location_get_country_long, NULL)
-	PHP_FE(ip2location_get_region, NULL)
-	PHP_FE(ip2location_get_city, NULL)
-	PHP_FE(ip2location_get_isp, NULL)
-	PHP_FE(ip2location_get_latitude, NULL)
-	PHP_FE(ip2location_get_longitude, NULL)
-	PHP_FE(ip2location_get_domain, NULL)
-	PHP_FE(ip2location_get_zipcode, NULL)
-	PHP_FE(ip2location_get_timezone, NULL)
-	PHP_FE(ip2location_get_netspeed, NULL)
-	PHP_FE(ip2location_get_iddcode, NULL)
-	PHP_FE(ip2location_get_areacode, NULL)
-	PHP_FE(ip2location_get_weatherstationcode, NULL)
-	PHP_FE(ip2location_get_weatherstationname, NULL)
-	PHP_FE(ip2location_get_mcc, NULL)
-	PHP_FE(ip2location_get_mnc, NULL)
-	PHP_FE(ip2location_get_mobilebrand, NULL)
-	PHP_FE(ip2location_get_elevation, NULL)
-	PHP_FE(ip2location_get_usagetype, NULL)
-	PHP_FE(ip2location_get_all, NULL)
-	PHP_FE(ip2location_close, NULL)
-	PHP_FE(ip2location_delete_shm, NULL)
+	PHP_FE(ip2location_open, ip2location_open)
+	PHP_FE(ip2location_open_mem, ip2location_open_mem)
+	PHP_FE(ip2location_get_country_short, ip2location_ip_address)
+	PHP_FE(ip2location_get_country_long, ip2location_ip_address)
+	PHP_FE(ip2location_get_region, ip2location_ip_address)
+	PHP_FE(ip2location_get_city, ip2location_ip_address)
+	PHP_FE(ip2location_get_isp, ip2location_ip_address)
+	PHP_FE(ip2location_get_latitude, ip2location_ip_address)
+	PHP_FE(ip2location_get_longitude, ip2location_ip_address)
+	PHP_FE(ip2location_get_domain, ip2location_ip_address)
+	PHP_FE(ip2location_get_zipcode, ip2location_ip_address)
+	PHP_FE(ip2location_get_timezone, ip2location_ip_address)
+	PHP_FE(ip2location_get_netspeed, ip2location_ip_address)
+	PHP_FE(ip2location_get_iddcode, ip2location_ip_address)
+	PHP_FE(ip2location_get_areacode, ip2location_ip_address)
+	PHP_FE(ip2location_get_weatherstationcode, ip2location_ip_address)
+	PHP_FE(ip2location_get_weatherstationname, ip2location_ip_address)
+	PHP_FE(ip2location_get_mcc, ip2location_ip_address)
+	PHP_FE(ip2location_get_mnc, ip2location_ip_address)
+	PHP_FE(ip2location_get_mobilebrand, ip2location_ip_address)
+	PHP_FE(ip2location_get_elevation, ip2location_ip_address)
+	PHP_FE(ip2location_get_usagetype, ip2location_ip_address)
+	PHP_FE(ip2location_get_all, ip2location_ip_address)
+	PHP_FE(ip2location_close, ip2location_void)
+	PHP_FE(ip2location_delete_shm, ip2location_void)
+#ifdef PHP_FE_END
+	PHP_FE_END
+#else
 	{NULL, NULL, NULL}
+#endif
 };
 
 /* the following code creates an entry for the module and registers it with Zend.*/
@@ -408,7 +432,7 @@ PHP_FUNCTION(ip2location_get_timezone)
 /* }}} */
 
 
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC == 80100
 /* see https://github.com/chrislim2888/IP2Location-C-Library/issues/37 */
 IP2LocationRecord *IP2Location_get_netspeed(IP2Location *handler, char *ip);
 #endif
