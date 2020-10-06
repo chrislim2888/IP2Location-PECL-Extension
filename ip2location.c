@@ -406,7 +406,7 @@ PHP_FUNCTION(ip2location_get_zipcode)
 		return;
 	}
 	record = IP2Location_get_zipcode(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->zip_code;
 #else
 	ret = record->zipcode;
@@ -434,7 +434,7 @@ PHP_FUNCTION(ip2location_get_timezone)
 		return;
 	}
 	record = IP2Location_get_timezone(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->time_zone;
 #else
 	ret = record->timezone;
@@ -469,7 +469,7 @@ PHP_FUNCTION(ip2location_get_netspeed)
 	}
 
 	record = IP2Location_get_netspeed(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->net_speed;
 #else
 	ret = record->netspeed;
@@ -497,7 +497,7 @@ PHP_FUNCTION(ip2location_get_iddcode)
 		return;
 	}
 	record = IP2Location_get_iddcode(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->idd_code;
 #else
 	ret = record->iddcode;
@@ -525,7 +525,7 @@ PHP_FUNCTION(ip2location_get_areacode)
 		return;
 	}
 	record = IP2Location_get_areacode(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->area_code;
 #else
 	ret = record->areacode;
@@ -553,7 +553,7 @@ PHP_FUNCTION(ip2location_get_weatherstationcode)
 		return;
 	}
 	record = IP2Location_get_weatherstationcode(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->weather_station_code;
 #else
 	ret = record->weatherstationcode;
@@ -581,7 +581,7 @@ PHP_FUNCTION(ip2location_get_weatherstationname)
 		return;
 	}
 	record = IP2Location_get_weatherstationname(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->weather_station_name;
 #else
 	ret = record->weatherstationname;
@@ -655,7 +655,7 @@ PHP_FUNCTION(ip2location_get_mobilebrand)
 		return;
 	}
 	record = IP2Location_get_mobilebrand(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->mobile_brand;
 #else
 	ret = record->mobilebrand;
@@ -702,7 +702,7 @@ PHP_FUNCTION(ip2location_get_usagetype)
 		return;
 	}
 	record = IP2Location_get_usagetype(IP2LOCATION_G(ip2location_ptr), ip_address);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	ret = record->usage_type;
 #else
 	ret = record->usagetype;
@@ -738,7 +738,7 @@ PHP_FUNCTION(ip2location_get_all)
 	add_assoc_string(return_value, "city",record->city);
 	add_assoc_string(return_value, "isp",record->isp);
 	add_assoc_string(return_value, "domain",record->domain);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	add_assoc_string(return_value, "zipcode",record->zip_code);
 	add_assoc_string(return_value, "timezone",record->time_zone);
 	add_assoc_string(return_value, "netspeed",record->net_speed);
@@ -768,7 +768,7 @@ PHP_FUNCTION(ip2location_get_all)
 	add_assoc_string(return_value, "city",record->city, 1);
 	add_assoc_string(return_value, "isp",record->isp, 1);
 	add_assoc_string(return_value, "domain",record->domain, 1);
-#if API_VERSION_NUMERIC >= 80100
+#if API_VERSION_NUMERIC >= 80100 && API_VERSION_NUMERIC < 80104
 	add_assoc_string(return_value, "zipcode",record->zip_code, 1);
 	add_assoc_string(return_value, "timezone",record->time_zone, 1);
 	add_assoc_string(return_value, "netspeed",record->net_speed, 1);
