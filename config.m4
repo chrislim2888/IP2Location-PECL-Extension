@@ -11,14 +11,13 @@ if test "$PHP_IP2LOCATION" != "no"; then
   # --with-ip2location -> check with-path
   SEARCH_PATH="/usr/local /usr /opt/local"
   SEARCH_FOR="/include/IP2Location.h"
+  AC_MSG_CHECKING([for ip2location files in default path])
   if test -r $PHP_IP2LOCATION/$SEARCH_FOR; then
     IP2LOCATION_DIR=$PHP_IP2LOCATION
   else # search default path list
-    AC_MSG_CHECKING([for ip2location files in default path])
     for i in $SEARCH_PATH ; do
       if test -r $i/$SEARCH_FOR; then
         IP2LOCATION_DIR=$i
-        AC_MSG_RESULT([found in $i])
       fi
     done
   fi
@@ -26,6 +25,8 @@ if test "$PHP_IP2LOCATION" != "no"; then
   if test -z "$IP2LOCATION_DIR"; then
     AC_MSG_RESULT([not found])
     AC_MSG_ERROR([Please reinstall the ip2location C library])
+  else
+    AC_MSG_RESULT([found in $IP2LOCATION_DIR])
   fi
 
   # --with-ip2location -> add include path
