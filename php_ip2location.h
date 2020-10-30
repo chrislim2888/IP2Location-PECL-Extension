@@ -64,6 +64,9 @@ PHP_FUNCTION(ip2location_get_usagetype);
 PHP_FUNCTION(ip2location_get_all);
 PHP_FUNCTION(ip2location_close);
 PHP_FUNCTION(ip2location_delete_shm);
+#if API_VERSION_NUMERIC >= 80300
+PHP_FUNCTION(ip2location_bin_version);
+#endif
 
 ZEND_BEGIN_MODULE_GLOBALS(ip2location)
         IP2Location *ip2location_ptr;

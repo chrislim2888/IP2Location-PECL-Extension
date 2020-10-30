@@ -76,6 +76,9 @@ static zend_function_entry ip2location_functions_entry[] = {
 	PHP_FE(ip2location_get_all, ip2location_ip_address)
 	PHP_FE(ip2location_close, ip2location_void)
 	PHP_FE(ip2location_delete_shm, ip2location_void)
+#if API_VERSION_NUMERIC >= 80300
+	PHP_FE(ip2location_bin_version, ip2location_void)
+#endif
 #ifdef PHP_FE_END
 	PHP_FE_END
 #else
@@ -805,7 +808,7 @@ PHP_FUNCTION(ip2location_get_all)
  * Returns the record information */
 PHP_FUNCTION(ip2location_close)
 {
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "") != SUCCESS) { 
+	if (zend_parse_parameters_none() != SUCCESS) {
 		return;
 	}
 	if (IP2LOCATION_G(ip2location_ptr)) {
@@ -819,7 +822,7 @@ PHP_FUNCTION(ip2location_close)
  * Returns nothing */
 PHP_FUNCTION(ip2location_delete_shm)
 {
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "") != SUCCESS) {
+	if (zend_parse_parameters_none() != SUCCESS) {
 		return;
 	}
 #if API_VERSION_NUMERIC >= 80100
@@ -829,6 +832,29 @@ PHP_FUNCTION(ip2location_delete_shm)
 #endif
 }
 /* }}} */
+
+#if API_VERSION_NUMERIC >= 80300
+/* {{{ ip2location_open_mem()
+ * Returns the version */
+PHP_FUNCTION(ip2location_bin_version)
+{
+	char *version;
+
+	if (zend_parse_parameters_none() != SUCCESS) {
+		return;
+	}
+
+	PHP_IP2LOCATION_DB_CHECK;
+	version  = IP2Location_bin_version(IP2LOCATION_G(ip2location_ptr));
+
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(version);
+#else
+	RETVAL_STRING(version, 1);
+#endif
+}
+/* }}} */
+#endif
 
 /*
  * Local variables:
