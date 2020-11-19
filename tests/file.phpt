@@ -11,6 +11,7 @@ var_dump(ip2location_open(__DIR__ . '/IP-COUNTRY-SAMPLE.BIN'));
 var_dump(ip2location_open_mem(IP2LOCATION_FILE_IO));
 var_dump(ip2location_get_country_short('25.5.10.2'));
 var_dump(ip2location_get_country_long('25.5.10.2'));
+if (function_exists('ip2location_bin_version') && ip2location_bin_version() !== '2013-4-11')
 var_dump(ip2location_bin_version());
 var_dump(ip2location_close());
 ?>
@@ -20,6 +21,5 @@ bool(true)
 bool(true)
 string(2) "UK"
 string(14) "UNITED KINGDOM"
-string(9) "2013-4-11"
 NULL
 Done
