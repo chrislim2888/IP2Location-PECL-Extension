@@ -138,6 +138,12 @@ PHP_MINIT_FUNCTION(ip2location)
  *  */
 PHP_MSHUTDOWN_FUNCTION(ip2location)
 {
+#if API_VERSION_NUMERIC >= 80100
+	IP2Location_clear_memory();
+#else
+	IP2Location_delete_shm();
+#endif
+
 	return SUCCESS;
 }
 /* }}} */
