@@ -1,8 +1,6 @@
 /*
   +----------------------------------------------------------------------+
-  | PHP Version 5                                                        |
-  +----------------------------------------------------------------------+
-  | Copyright (c) 1997-2009 The PHP Group                                |
+  | Copyright (c) The PHP Group                                          |
   +----------------------------------------------------------------------+
   | This source file is subject to version 3.01 of the PHP license,      |
   | that is bundled with this package in the file LICENSE, and is        |
@@ -78,6 +76,10 @@ static zend_function_entry ip2location_functions_entry[] = {
 	PHP_FE(ip2location_delete_shm, ip2location_void)
 #if API_VERSION_NUMERIC >= 80300
 	PHP_FE(ip2location_bin_version, ip2location_void)
+#endif
+#if API_VERSION_NUMERIC >= 80400
+	PHP_FE(ip2location_get_addresstype, ip2location_ip_address)
+	PHP_FE(ip2location_get_category, ip2location_ip_address)
 #endif
 #ifdef PHP_FE_END
 	PHP_FE_END
@@ -725,6 +727,56 @@ PHP_FUNCTION(ip2location_get_usagetype)
 }
 /* }}} */
 
+#if API_VERSION_NUMERIC >= 80400
+/* {{{ ip2location_get_addresstype("ip_address")
+ * Returns ip address's internet connection address type information */
+PHP_FUNCTION(ip2location_get_addresstype)
+{
+	char *ip_address, *ret;
+	size_t ip_len;
+	IP2LocationRecord *record = NULL;
+
+	PHP_IP2LOCATION_DB_CHECK;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+		return;
+	}
+	record = IP2Location_get_addresstype(IP2LOCATION_G(ip2location_ptr), ip_address);
+	ret = record->address_type;
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
+	IP2Location_free_record(record);
+}
+/* }}} */
+
+/* {{{ ip2location_get_category("ip_address")
+ * Returns ip address's internet connection category information */
+PHP_FUNCTION(ip2location_get_category)
+{
+	char *ip_address, *ret;
+	size_t ip_len;
+	IP2LocationRecord *record = NULL;
+
+	PHP_IP2LOCATION_DB_CHECK;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+		return;
+	}
+	record = IP2Location_get_category(IP2LOCATION_G(ip2location_ptr), ip_address);
+	ret = record->category;
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
+	IP2Location_free_record(record);
+}
+/* }}} */
+#endif
+
 /* {{{ ip2location_get_all("ip_address")
  *  * Returns the record information */
 PHP_FUNCTION(ip2location_get_all)
@@ -768,6 +820,10 @@ PHP_FUNCTION(ip2location_get_all)
 	add_assoc_string(return_value, "mobilebrand",record->mobilebrand);
 	add_assoc_string(return_value, "usagetype",record->usagetype);
 #endif
+#if API_VERSION_NUMERIC >= 80400
+	add_assoc_string(return_value, "addresstype", record->address_type);
+	add_assoc_string(return_value, "category", record->category);
+#endif
 	add_assoc_string(return_value, "mcc",record->mcc);
 	add_assoc_string(return_value, "mnc",record->mnc);
 #else
@@ -797,6 +853,10 @@ PHP_FUNCTION(ip2location_get_all)
 	add_assoc_string(return_value, "weatherstationname",record->weatherstationname, 1);
 	add_assoc_string(return_value, "mobilebrand",record->mobilebrand, 1);
 	add_assoc_string(return_value, "usagetype",record->usagetype, 1);
+#endif
+#if API_VERSION_NUMERIC >= 80400
+	add_assoc_string(return_value, "addresstype", record->address_type, 1);
+	add_assoc_string(return_value, "category", record->category, 1);
 #endif
 	add_assoc_string(return_value, "mcc",record->mcc, 1);
 	add_assoc_string(return_value, "mnc",record->mnc, 1);

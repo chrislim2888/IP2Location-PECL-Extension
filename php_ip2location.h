@@ -61,6 +61,10 @@ PHP_FUNCTION(ip2location_get_mnc);
 PHP_FUNCTION(ip2location_get_mobilebrand);
 PHP_FUNCTION(ip2location_get_elevation);
 PHP_FUNCTION(ip2location_get_usagetype);
+#if API_VERSION_NUMERIC >= 80400
+PHP_FUNCTION(ip2location_get_addresstype);
+PHP_FUNCTION(ip2location_get_category);
+#endif
 PHP_FUNCTION(ip2location_get_all);
 PHP_FUNCTION(ip2location_close);
 PHP_FUNCTION(ip2location_delete_shm);
