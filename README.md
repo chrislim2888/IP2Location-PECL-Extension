@@ -1,5 +1,5 @@
 # IP2Location PECL Extension
-This PECL extension allows you to find the location of an IP address - country, region or state, city, latitude and longitude, US ZIP code, time zone, Internet Service Provider (ISP) or company name, domain name, net speed, area code, weather station code, weather station name, mobile country code (MCC), mobile network code (MNC) and carrier brand, elevation, and usage type.
+This PECL extension allows you to find the location of an IP address - country, region or state, city, latitude and longitude, US ZIP code, time zone, Internet Service Provider (ISP) or company name, domain name, net speed, area code, weather station code, weather station name, mobile country code (MCC), mobile network code (MNC) and carrier brand, elevation, usage type, address type and IAB category.
 
 To compile it, you will need to have the ip2location c library (version 8.x) installed.
 
