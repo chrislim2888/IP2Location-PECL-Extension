@@ -37,46 +37,6 @@ PHP_MINFO_FUNCTION(ip2location);
 extern zend_module_entry ip2location_module_entry;
 #define phpext_ip2location_ptr &ip2location_module_entry
 
-
-
-PHP_FUNCTION(ip2location_open);
-PHP_FUNCTION(ip2location_open_mem);
-PHP_FUNCTION(ip2location_get_country_short);
-PHP_FUNCTION(ip2location_get_country_long);
-PHP_FUNCTION(ip2location_get_region);
-PHP_FUNCTION(ip2location_get_city);
-PHP_FUNCTION(ip2location_get_isp);
-PHP_FUNCTION(ip2location_get_latitude);
-PHP_FUNCTION(ip2location_get_longitude);
-PHP_FUNCTION(ip2location_get_domain);
-PHP_FUNCTION(ip2location_get_zipcode);
-PHP_FUNCTION(ip2location_get_timezone);
-PHP_FUNCTION(ip2location_get_netspeed);
-PHP_FUNCTION(ip2location_get_iddcode);
-PHP_FUNCTION(ip2location_get_areacode);
-PHP_FUNCTION(ip2location_get_weatherstationcode);
-PHP_FUNCTION(ip2location_get_weatherstationname);
-PHP_FUNCTION(ip2location_get_mcc);
-PHP_FUNCTION(ip2location_get_mnc);
-PHP_FUNCTION(ip2location_get_mobilebrand);
-PHP_FUNCTION(ip2location_get_elevation);
-PHP_FUNCTION(ip2location_get_usagetype);
-#if API_VERSION_NUMERIC >= 80400
-PHP_FUNCTION(ip2location_get_addresstype);
-PHP_FUNCTION(ip2location_get_category);
-#endif
-#if API_VERSION_NUMERIC >= 80600
-PHP_FUNCTION(ip2location_get_district);
-PHP_FUNCTION(ip2location_get_asn);
-PHP_FUNCTION(ip2location_get_as);
-#endif
-PHP_FUNCTION(ip2location_get_all);
-PHP_FUNCTION(ip2location_close);
-PHP_FUNCTION(ip2location_delete_shm);
-#if API_VERSION_NUMERIC >= 80300
-PHP_FUNCTION(ip2location_bin_version);
-#endif
-
 ZEND_BEGIN_MODULE_GLOBALS(ip2location)
         IP2Location *ip2location_ptr;
 ZEND_END_MODULE_GLOBALS(ip2location)
