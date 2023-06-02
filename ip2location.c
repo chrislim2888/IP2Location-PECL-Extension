@@ -26,13 +26,7 @@
 
 #if PHP_MAJOR_VERSION >= 8
 #include "ip2location_arginfo.h"
-
 #else
-/* For PHP < 5.3.7 */
-#ifndef PHP_FE_END
-#define PHP_FE_END {NULL, NULL, NULL}
-#endif
-
 #include "ip2location_legacy_arginfo.h"
 #endif
 
