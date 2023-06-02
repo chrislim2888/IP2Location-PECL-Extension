@@ -81,6 +81,11 @@ static zend_function_entry ip2location_functions_entry[] = {
 	PHP_FE(ip2location_get_addresstype, ip2location_ip_address)
 	PHP_FE(ip2location_get_category, ip2location_ip_address)
 #endif
+#if API_VERSION_NUMERIC >= 80600
+	PHP_FE(ip2location_get_district, ip2location_ip_address)
+	PHP_FE(ip2location_get_asn, ip2location_ip_address)
+	PHP_FE(ip2location_get_as, ip2location_ip_address)
+#endif
 #ifdef PHP_FE_END
 	PHP_FE_END
 #else
@@ -777,6 +782,80 @@ PHP_FUNCTION(ip2location_get_category)
 /* }}} */
 #endif
 
+#if API_VERSION_NUMERIC >= 80600
+/* {{{ ip2location_get_district("ip_address")
+ * Returns ip address's internet connection district type information */
+PHP_FUNCTION(ip2location_get_district)
+{
+	char *ip_address, *ret;
+	size_t ip_len;
+	IP2LocationRecord *record = NULL;
+
+	PHP_IP2LOCATION_DB_CHECK;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+		return;
+	}
+	record = IP2Location_get_district(IP2LOCATION_G(ip2location_ptr), ip_address);
+	ret = record->district;
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
+	IP2Location_free_record(record);
+}
+/* }}} */
+
+/* {{{ ip2location_get_asn("ip_address")
+ * Returns ip address's internet connection as number information */
+PHP_FUNCTION(ip2location_get_asn)
+{
+	char *ip_address, *ret;
+	size_t ip_len;
+	IP2LocationRecord *record = NULL;
+
+	PHP_IP2LOCATION_DB_CHECK;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+		return;
+	}
+	record = IP2Location_get_asn(IP2LOCATION_G(ip2location_ptr), ip_address);
+	ret = record->asn;
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
+	IP2Location_free_record(record);
+}
+/* }}} */
+
+/* {{{ ip2location_get_as("ip_address")
+ * Returns ip address's internet connection as name information */
+PHP_FUNCTION(ip2location_get_as)
+{
+	char *ip_address, *ret;
+	size_t ip_len;
+	IP2LocationRecord *record = NULL;
+
+	PHP_IP2LOCATION_DB_CHECK;
+
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "s", &ip_address, &ip_len) == FAILURE) {
+		return;
+	}
+	record = IP2Location_get_as(IP2LOCATION_G(ip2location_ptr), ip_address);
+	ret = record->as;
+#if PHP_MAJOR_VERSION >= 7
+	RETVAL_STRING(ret);
+#else
+	RETVAL_STRING(ret, 1);
+#endif
+	IP2Location_free_record(record);
+}
+/* }}} */
+#endif
+
 /* {{{ ip2location_get_all("ip_address")
  *  * Returns the record information */
 PHP_FUNCTION(ip2location_get_all)
@@ -824,6 +903,11 @@ PHP_FUNCTION(ip2location_get_all)
 	add_assoc_string(return_value, "addresstype", record->address_type);
 	add_assoc_string(return_value, "category", record->category);
 #endif
+#if API_VERSION_NUMERIC >= 80600
+	add_assoc_string(return_value, "district", record->district);
+	add_assoc_string(return_value, "asn", record->asn);
+	add_assoc_string(return_value, "as", record->as);
+#endif
 	add_assoc_string(return_value, "mcc",record->mcc);
 	add_assoc_string(return_value, "mnc",record->mnc);
 #else
@@ -857,6 +941,11 @@ PHP_FUNCTION(ip2location_get_all)
 #if API_VERSION_NUMERIC >= 80400
 	add_assoc_string(return_value, "addresstype", record->address_type, 1);
 	add_assoc_string(return_value, "category", record->category, 1);
+#endif
+#if API_VERSION_NUMERIC >= 80600
+	add_assoc_string(return_value, "district", record->district, 1);
+	add_assoc_string(return_value, "asn", record->asn, 1);
+	add_assoc_string(return_value, "as", record->as, 1);
 #endif
 	add_assoc_string(return_value, "mcc",record->mcc, 1);
 	add_assoc_string(return_value, "mnc",record->mnc, 1);

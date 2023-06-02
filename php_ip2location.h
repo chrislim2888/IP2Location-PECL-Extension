@@ -65,6 +65,11 @@ PHP_FUNCTION(ip2location_get_usagetype);
 PHP_FUNCTION(ip2location_get_addresstype);
 PHP_FUNCTION(ip2location_get_category);
 #endif
+#if API_VERSION_NUMERIC >= 80600
+PHP_FUNCTION(ip2location_get_district);
+PHP_FUNCTION(ip2location_get_asn);
+PHP_FUNCTION(ip2location_get_as);
+#endif
 PHP_FUNCTION(ip2location_get_all);
 PHP_FUNCTION(ip2location_close);
 PHP_FUNCTION(ip2location_delete_shm);
