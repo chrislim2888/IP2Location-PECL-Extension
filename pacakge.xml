@@ -26,27 +26,30 @@ added address type and category.
  </notes>
  <contents>
   <dir name="/">
-   <file md5sum="0f65564cb7a1be32e4052b4541797989" name="tests/IP-COUNTRY-SAMPLE.BIN" role="test" />
-   <file md5sum="8d3ceada5844e0ecb63eb7a076363cea" name="tests/cache.phpt" role="test" />
-   <file md5sum="629a375fed6be8ab86bb7bd2e936be2a" name="tests/cachemethodtest.php" role="test" />
-   <file md5sum="0f6aa6a490cecea17043d3370e833b6f" name="tests/file.phpt" role="test" />
-   <file md5sum="f35030d136d93ab377cbc6e7cdba2711" name="tests/filemethodtest.php" role="test" />
-   <file md5sum="9a4bd6029f973d4519efce9509fa8fa7" name="tests/shm.phpt" role="test" />
-   <file md5sum="0f3ab62aa4e7d4b60497e16f8abeb668" name="tests/shmmethodtest.php" role="test" />
-   <file md5sum="5a3b05f178e045df6d4a9a8d4e7f6130" name="CREDITS" role="doc" />
-   <file md5sum="ff7ce8b3d73187538a6d5ed630d03ae3" name="IP2Loc_DBInterface.h" role="src" />
-   <file md5sum="2f7ba94e342799499bb8f6c495752984" name="LICENSE" role="doc" />
-   <file md5sum="89862fcd8c03ac0842ff9ebe812395ad" name="README.md" role="doc" />
-   <file md5sum="0c0fae61be67e7ac7c070205f8f6fe53" name="config.m4" role="src" />
-   <file md5sum="fd23d465c5de2141adb478f905d1c91b" name="config.w32" role="src" />
-   <file md5sum="99c4358668f25c05b897fad585c706bc" name="ip2location.c" role="src" />
-   <file md5sum="9cb8c64ae613952274f6327c808e753b" name="php_ip2location.h" role="src" />
+   <file name="tests/IP-COUNTRY-SAMPLE.BIN" role="test" />
+   <file name="tests/cache.phpt" role="test" />
+   <file name="tests/cachemethodtest.php" role="test" />
+   <file name="tests/file.phpt" role="test" />
+   <file name="tests/filemethodtest.php" role="test" />
+   <file name="tests/shm.phpt" role="test" />
+   <file name="tests/shmmethodtest.php" role="test" />
+   <file name="CREDITS" role="doc" />
+   <file name="IP2Loc_DBInterface.h" role="src" />
+   <file name="LICENSE" role="doc" />
+   <file name="README.md" role="doc" />
+   <file name="config.m4" role="src" />
+   <file name="config.w32" role="src" />
+   <file name="ip2location.c" role="src" />
+   <file name="ip2location_arginfo.h" role="src" />
+   <file name="ip2location_arginfo_legacy.h" role="src" />
+   <file name="ip2location.stub.php.h" role="src" />
+   <file name="php_ip2location.h" role="src" />
   </dir>
  </contents>
  <dependencies>
   <required>
    <php>
-    <min>5</min>
+    <min>5.4.0</min>
    </php>
    <pearinstaller>
     <min>1.4.0b1</min>

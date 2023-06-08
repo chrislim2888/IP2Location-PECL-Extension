@@ -24,6 +24,12 @@
 
 #include "php_ip2location.h"
 
+#if PHP_MAJOR_VERSION >= 8
+#include "ip2location_arginfo.h"
+#else
+#include "ip2location_legacy_arginfo.h"
+#endif
+
 /* For PHP 8 */
 #ifndef TSRMLS_CC
 #define TSRMLS_CC
@@ -33,71 +39,11 @@ ZEND_DECLARE_MODULE_GLOBALS(ip2location)
 
 #define IP2LOCATION_RECORD 0
 
-ZEND_BEGIN_ARG_INFO_EX(ip2location_open, 0, 0, 1)
-	ZEND_ARG_INFO(0, file_path)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(ip2location_open_mem, 0, 0, 1)
-	ZEND_ARG_INFO(0, method)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(ip2location_ip_address, 0, 0, 1)
-	ZEND_ARG_INFO(0, ip_address)
-ZEND_END_ARG_INFO()
-
-ZEND_BEGIN_ARG_INFO_EX(ip2location_void, 0, 0, 0)
-ZEND_END_ARG_INFO()
-
-static zend_function_entry ip2location_functions_entry[] = {
-	PHP_FE(ip2location_open, ip2location_open)
-	PHP_FE(ip2location_open_mem, ip2location_open_mem)
-	PHP_FE(ip2location_get_country_short, ip2location_ip_address)
-	PHP_FE(ip2location_get_country_long, ip2location_ip_address)
-	PHP_FE(ip2location_get_region, ip2location_ip_address)
-	PHP_FE(ip2location_get_city, ip2location_ip_address)
-	PHP_FE(ip2location_get_isp, ip2location_ip_address)
-	PHP_FE(ip2location_get_latitude, ip2location_ip_address)
-	PHP_FE(ip2location_get_longitude, ip2location_ip_address)
-	PHP_FE(ip2location_get_domain, ip2location_ip_address)
-	PHP_FE(ip2location_get_zipcode, ip2location_ip_address)
-	PHP_FE(ip2location_get_timezone, ip2location_ip_address)
-	PHP_FE(ip2location_get_netspeed, ip2location_ip_address)
-	PHP_FE(ip2location_get_iddcode, ip2location_ip_address)
-	PHP_FE(ip2location_get_areacode, ip2location_ip_address)
-	PHP_FE(ip2location_get_weatherstationcode, ip2location_ip_address)
-	PHP_FE(ip2location_get_weatherstationname, ip2location_ip_address)
-	PHP_FE(ip2location_get_mcc, ip2location_ip_address)
-	PHP_FE(ip2location_get_mnc, ip2location_ip_address)
-	PHP_FE(ip2location_get_mobilebrand, ip2location_ip_address)
-	PHP_FE(ip2location_get_elevation, ip2location_ip_address)
-	PHP_FE(ip2location_get_usagetype, ip2location_ip_address)
-	PHP_FE(ip2location_get_all, ip2location_ip_address)
-	PHP_FE(ip2location_close, ip2location_void)
-	PHP_FE(ip2location_delete_shm, ip2location_void)
-#if API_VERSION_NUMERIC >= 80300
-	PHP_FE(ip2location_bin_version, ip2location_void)
-#endif
-#if API_VERSION_NUMERIC >= 80400
-	PHP_FE(ip2location_get_addresstype, ip2location_ip_address)
-	PHP_FE(ip2location_get_category, ip2location_ip_address)
-#endif
-#if API_VERSION_NUMERIC >= 80600
-	PHP_FE(ip2location_get_district, ip2location_ip_address)
-	PHP_FE(ip2location_get_asn, ip2location_ip_address)
-	PHP_FE(ip2location_get_as, ip2location_ip_address)
-#endif
-#ifdef PHP_FE_END
-	PHP_FE_END
-#else
-	{NULL, NULL, NULL}
-#endif
-};
-
 /* the following code creates an entry for the module and registers it with Zend.*/
 zend_module_entry ip2location_module_entry = {
 	STANDARD_MODULE_HEADER,
 	PHP_IP2LOCATION_EXTNAME,
-	ip2location_functions_entry,
+	ext_functions,
 	PHP_MINIT(ip2location),
 	PHP_MSHUTDOWN(ip2location),
 	NULL, 
