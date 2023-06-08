@@ -41,8 +41,8 @@ added district, asn and as.
    <file name="config.w32" role="src" />
    <file name="ip2location.c" role="src" />
    <file name="ip2location_arginfo.h" role="src" />
-   <file name="ip2location_arginfo_legacy.h" role="src" />
-   <file name="ip2location.stub.php.h" role="src" />
+   <file name="ip2location_legacy_arginfo.h" role="src" />
+   <file name="ip2location.stub.php" role="src" />
    <file name="php_ip2location.h" role="src" />
   </dir>
  </contents>
