@@ -20,7 +20,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="https://www.php.net/license/3_01.txt" filesource="LICENSE">PHP-3.01</license>
+ <license uri="http://www.php.net/license">PHP License</license>
  <notes>
 added address type and category.
  </notes>
