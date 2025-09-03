@@ -1,5 +1,5 @@
 # IP2Location PECL Extension
-This PECL extension allows you to find the location of an IP address - country, region or state, district, city, latitude and longitude,  ZIP/Postal code, time zone, Internet Service Provider (ISP) or company  name, domain name, net speed, area code, weather station code, weather  station name, mobile country code (MCC), mobile network code (MNC) and  carrier brand, elevation, usage type, address type, IAB category and ASN.
+This PECL extension allows you to find the location of an IP address - country, region or state, district, city, latitude and longitude,  ZIP/Postal code, time zone, Internet Service Provider (ISP) or company  name, domain name, net speed, area code, weather station code, weather  station name, mobile country code (MCC), mobile network code (MNC) and  carrier brand, elevation, usage type, address type, IAB category, district and ASN.
 
 To compile it, you will need to have the ip2location c library (version 8.x) installed.
 
@@ -13,7 +13,7 @@ To compile it, you will need to have the ip2location c library (version 8.x) ins
 5. ./configure
 6. make
 7. make install
-   
+
 ### Install PECL extension (on Linux/Unix)
 1. Decompress the archive.
 2. Navigate to working directory.
@@ -30,7 +30,7 @@ For details installation instructions for PHP PECL extensions, please see:
 http://www.php.net/manual/en/install.pecl.php
 
 # Sample BIN Databases
-* Download free IP2Location LITE databases at [https://lite.ip2location.com](https://lite.ip2location.com)  
+* Download free IP2Location LITE databases at [https://lite.ip2location.com](https://lite.ip2location.com)
 * Download IP2Location sample databases at [https://www.ip2location.com/developers](https://www.ip2location.com/developers)
 
 # IPv4 BIN vs IPv6 BIN
@@ -38,5 +38,5 @@ http://www.php.net/manual/en/install.pecl.php
 * Use the IPv6 BIN file if you need to query BOTH IPv4 and IPv6 addresses.
 
 # Support
-Email: support@ip2location.com.  
-URL: [http://www.ip2location.com](http://www.ip2location.com)
+Email: support@ip2location.com.
+URL: [https://www.ip2location.com](https://www.ip2location.com)

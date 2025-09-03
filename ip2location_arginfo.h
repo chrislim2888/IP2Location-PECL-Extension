@@ -89,6 +89,18 @@ ZEND_END_ARG_INFO()
 #define arginfo_ip2location_get_as arginfo_ip2location_get_district
 #endif
 
+#if API_VERSION_NUMERIC >= 80700
+#define arginfo_ip2location_get_as_domain arginfo_ip2location_get_district
+#endif
+
+#if API_VERSION_NUMERIC >= 80700
+#define arginfo_ip2location_get_as_usage_type arginfo_ip2location_get_district
+#endif
+
+#if API_VERSION_NUMERIC >= 80700
+#define arginfo_ip2location_get_as_cidr arginfo_ip2location_get_district
+#endif
+
 
 ZEND_FUNCTION(ip2location_open);
 ZEND_FUNCTION(ip2location_open_mem);
@@ -132,6 +144,15 @@ ZEND_FUNCTION(ip2location_get_asn);
 #endif
 #if API_VERSION_NUMERIC >= 80600
 ZEND_FUNCTION(ip2location_get_as);
+#endif
+#if API_VERSION_NUMERIC >= 80700
+ZEND_FUNCTION(ip2location_get_as_domain);
+#endif
+#if API_VERSION_NUMERIC >= 80700
+ZEND_FUNCTION(ip2location_get_as_usage_type);
+#endif
+#if API_VERSION_NUMERIC >= 80700
+ZEND_FUNCTION(ip2location_get_as_cidr);
 #endif
 
 
@@ -178,6 +199,15 @@ static const zend_function_entry ext_functions[] = {
 #endif
 #if API_VERSION_NUMERIC >= 80600
 	ZEND_FE(ip2location_get_as, arginfo_ip2location_get_as)
+#endif
+#if API_VERSION_NUMERIC >= 80700
+	ZEND_FE(ip2location_get_as_domain, arginfo_ip2location_get_as_domain)
+#endif
+#if API_VERSION_NUMERIC >= 80700
+	ZEND_FE(ip2location_get_as_usage_type, arginfo_ip2location_get_as_usage_type)
+#endif
+#if API_VERSION_NUMERIC >= 80700
+	ZEND_FE(ip2location_get_as_cidr, arginfo_ip2location_get_as_cidr)
 #endif
 	ZEND_FE_END
 };

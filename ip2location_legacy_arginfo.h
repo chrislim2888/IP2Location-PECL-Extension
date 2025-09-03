@@ -80,11 +80,23 @@ ZEND_END_ARG_INFO()
 #endif
 
 #if API_VERSION_NUMERIC >= 80600
-#define arginfo_ip2location_get_asn arginfo_ip2location_get_district
+#define arginfo_ip2location_get_asn arginfo_ip2location_get_asn
 #endif
 
 #if API_VERSION_NUMERIC >= 80600
-#define arginfo_ip2location_get_as arginfo_ip2location_get_district
+#define arginfo_ip2location_get_as arginfo_ip2location_get_as
+#endif
+
+#if API_VERSION_NUMERIC >= 80700
+#define arginfo_ip2location_get_as_domain arginfo_ip2location_get_domain
+#endif
+
+#if API_VERSION_NUMERIC >= 80700
+#define arginfo_ip2location_get_as_usage_type arginfo_ip2location_get_usage_type
+#endif
+
+#if API_VERSION_NUMERIC >= 80700
+#define arginfo_ip2location_get_as_cidr arginfo_ip2location_get_cidr
 #endif
 
 

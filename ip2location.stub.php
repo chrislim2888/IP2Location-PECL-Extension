@@ -42,4 +42,8 @@ function ip2location_get_district(string $ip_address): string {}
 function ip2location_get_asn(string $ip_address): string {}
 function ip2location_get_as(string $ip_address): string {}
 #endif
-
+#if API_VERSION_NUMERIC >= 80700
+function ip2location_get_as_domain(string $ip_address): string {}
+function ip2location_get_as_usage_type(string $ip_address): string {}
+function ip2location_get_as_cidr(string $ip_address): string {}
+#endif
