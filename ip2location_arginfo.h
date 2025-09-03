@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: c57e18a606ee629525559e7f245e9643c54c59c5 */
+ * Stub hash: ed66f116eb8a1c160a1e2517559e0bef39118179 */
 
 ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_ip2location_open, 0, 1, _IS_BOOL, 0)
 	ZEND_ARG_TYPE_INFO(0, file_path, IS_STRING, 0)
@@ -90,15 +90,17 @@ ZEND_END_ARG_INFO()
 #endif
 
 #if API_VERSION_NUMERIC >= 80700
-#define arginfo_ip2location_get_as_domain arginfo_ip2location_get_district
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(arginfo_ip2location_get_as_domain, 0, 1, IS_STRING, 0)
+	ZEND_ARG_TYPE_INFO(0, ip_address, IS_STRING, 0)
+ZEND_END_ARG_INFO()
 #endif
 
 #if API_VERSION_NUMERIC >= 80700
-#define arginfo_ip2location_get_as_usage_type arginfo_ip2location_get_district
+#define arginfo_ip2location_get_as_usage_type arginfo_ip2location_get_as_domain
 #endif
 
 #if API_VERSION_NUMERIC >= 80700
-#define arginfo_ip2location_get_as_cidr arginfo_ip2location_get_district
+#define arginfo_ip2location_get_as_cidr arginfo_ip2location_get_as_domain
 #endif
 
 
