@@ -1,5 +1,5 @@
 /* This is a generated file, edit the .stub.php file instead.
- * Stub hash: c57e18a606ee629525559e7f245e9643c54c59c5 */
+ * Stub hash: ed66f116eb8a1c160a1e2517559e0bef39118179 */
 
 ZEND_BEGIN_ARG_INFO_EX(arginfo_ip2location_open, 0, 0, 1)
 	ZEND_ARG_INFO(0, file_path)
@@ -80,23 +80,25 @@ ZEND_END_ARG_INFO()
 #endif
 
 #if API_VERSION_NUMERIC >= 80600
-#define arginfo_ip2location_get_asn arginfo_ip2location_get_asn
+#define arginfo_ip2location_get_asn arginfo_ip2location_get_district
 #endif
 
 #if API_VERSION_NUMERIC >= 80600
-#define arginfo_ip2location_get_as arginfo_ip2location_get_as
+#define arginfo_ip2location_get_as arginfo_ip2location_get_district
 #endif
 
 #if API_VERSION_NUMERIC >= 80700
-#define arginfo_ip2location_get_as_domain arginfo_ip2location_get_domain
+ZEND_BEGIN_ARG_INFO_EX(arginfo_ip2location_get_as_domain, 0, 0, 1)
+	ZEND_ARG_INFO(0, ip_address)
+ZEND_END_ARG_INFO()
 #endif
 
 #if API_VERSION_NUMERIC >= 80700
-#define arginfo_ip2location_get_as_usage_type arginfo_ip2location_get_usage_type
+#define arginfo_ip2location_get_as_usage_type arginfo_ip2location_get_as_domain
 #endif
 
 #if API_VERSION_NUMERIC >= 80700
-#define arginfo_ip2location_get_as_cidr arginfo_ip2location_get_cidr
+#define arginfo_ip2location_get_as_cidr arginfo_ip2location_get_as_domain
 #endif
 
 
@@ -143,6 +145,15 @@ ZEND_FUNCTION(ip2location_get_asn);
 #if API_VERSION_NUMERIC >= 80600
 ZEND_FUNCTION(ip2location_get_as);
 #endif
+#if API_VERSION_NUMERIC >= 80700
+ZEND_FUNCTION(ip2location_get_as_domain);
+#endif
+#if API_VERSION_NUMERIC >= 80700
+ZEND_FUNCTION(ip2location_get_as_usage_type);
+#endif
+#if API_VERSION_NUMERIC >= 80700
+ZEND_FUNCTION(ip2location_get_as_cidr);
+#endif
 
 
 static const zend_function_entry ext_functions[] = {
@@ -188,6 +199,15 @@ static const zend_function_entry ext_functions[] = {
 #endif
 #if API_VERSION_NUMERIC >= 80600
 	ZEND_FE(ip2location_get_as, arginfo_ip2location_get_as)
+#endif
+#if API_VERSION_NUMERIC >= 80700
+	ZEND_FE(ip2location_get_as_domain, arginfo_ip2location_get_as_domain)
+#endif
+#if API_VERSION_NUMERIC >= 80700
+	ZEND_FE(ip2location_get_as_usage_type, arginfo_ip2location_get_as_usage_type)
+#endif
+#if API_VERSION_NUMERIC >= 80700
+	ZEND_FE(ip2location_get_as_cidr, arginfo_ip2location_get_as_cidr)
 #endif
 	ZEND_FE_END
 };
