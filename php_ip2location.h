@@ -28,7 +28,7 @@
 #include <php.h>
 
 #define PHP_IP2LOCATION_EXTNAME "ip2location"
-#define PHP_IP2LOCATION_VERSION "8.2.0"
+#define PHP_IP2LOCATION_VERSION "8.3.0"
 
 PHP_MINIT_FUNCTION(ip2location);
 PHP_MSHUTDOWN_FUNCTION(ip2location);
@@ -48,4 +48,4 @@ ZEND_END_MODULE_GLOBALS(ip2location)
 #endif
 
 
-#endif 
+#endif
