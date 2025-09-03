@@ -802,7 +802,7 @@ PHP_FUNCTION(ip2location_get_as)
 /* }}} */
 #endif
 
-#if API_VERSION_NUMERIC >= 80600
+#if API_VERSION_NUMERIC >= 80700
 /* {{{ ip2location_get_as_domain("ip_address")
  * Returns ip address's internet connection district type information */
 PHP_FUNCTION(ip2location_get_as_domain)
