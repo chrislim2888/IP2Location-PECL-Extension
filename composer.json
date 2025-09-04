@@ -1,5 +1,5 @@
 {
-  "name": "ip2location/ip2location",
+  "name": "ip2location/ip2location-pie",
   "type": "php-ext",
   "license": "PHP-3.01",
   "description": "IP2Location Geolocation Lookup",
