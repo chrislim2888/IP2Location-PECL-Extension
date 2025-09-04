@@ -26,8 +26,8 @@ jobs:
           -
             php-version: '8.0'
             os-version: alpine3.13
-            prepare-command: apk add --no-cache $PHPIZE_DEPS automake libtool
-            cleanup-command: apk del $PHPIZE_DEPS automake libtool
+            prepare-command: apk add --no-cache $PHPIZE_DEPS automake libtool perl
+            cleanup-command: apk del $PHPIZE_DEPS automake libtool perl
           -
             php-version: '8.0'
             os-version: buster
@@ -37,8 +37,8 @@ jobs:
           -
             php-version: '8.4'
             os-version: alpine3.22
-            prepare-command: apk add --no-cache $PHPIZE_DEPS automake libtool
-            cleanup-command: apk del $PHPIZE_DEPS automake libtool
+            prepare-command: apk add --no-cache $PHPIZE_DEPS automake libtool perl
+            cleanup-command: apk del $PHPIZE_DEPS automake libtool perl
           -
             php-version: '8.4'
             os-version: trixie
@@ -74,6 +74,8 @@ jobs:
           autoreconf -fiv
           ./configure
           make -j$(nproc)
+          (cd data && perl ip-country.pl)
+          make check
           make install
           ldconfig || true
           cd ..
