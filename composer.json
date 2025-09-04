@@ -1,0 +1,12 @@
+{
+  "name": "ip2location/ip2location",
+  "type": "php-ext",
+  "license": "PHP-3.01",
+  "description": "IP2Location Geolocation Lookup",
+  "require": {
+    "php": ">= 7.0.0"
+  },
+  "php-ext": {
+    "extension-name": "ip2location"
+  }
+}
