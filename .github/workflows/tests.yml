@@ -1,0 +1,105 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - '**'
+  pull_request:
+    branches:
+      - master
+
+env:
+  LIBIP2LOCATION_VERSION: 8.7.0
+
+jobs:
+  build:
+    name: PECL (PHP ${{ matrix.php-version }} on ${{ matrix.os-version }})
+    runs-on: ubuntu-latest
+    container:
+      image: php:${{ matrix.php-version }}-cli-${{ matrix.os-version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          -
+            php-version: '8.0'
+            os-version: alpine3.13
+            prepare-command: apk add --no-cache $PHPIZE_DEPS automake libtool perl
+            cleanup-command: apk del $PHPIZE_DEPS automake libtool perl
+          -
+            php-version: '8.0'
+            os-version: buster
+            prepare-command: apt-get update && apt-get install -qy automake libtool
+            cleanup-command: apt-get remove --purge -qy automake libtool
+            fix-apt: true
+          -
+            php-version: '8.4'
+            os-version: alpine3.22
+            prepare-command: apk add --no-cache $PHPIZE_DEPS automake libtool perl
+            cleanup-command: apk del $PHPIZE_DEPS automake libtool perl
+          -
+            php-version: '8.4'
+            os-version: trixie
+            prepare-command: apt-get update && apt-get install -qy automake libtool
+            cleanup-command: apt-get remove --purge -qy automake libtool
+    steps:
+      -
+        name: Fix apt
+        if: matrix.fix-apt
+        env:
+          DEB_ARCHIVE: http://archive.debian.org/debian-archive
+          DEB_ARCHIVE_SECURITY: http://archive.debian.org/debian-archive/debian-security
+        run: |
+          echo '# Original /etc/apt/sources.list'
+          cat /etc/apt/sources.list | grep -v '^#'
+          . /etc/os-release
+          sed -ri "s;^(\s*deb\s+http://(httpredir|deb).debian.org/debian\s+$VERSION_CODENAME-updates\b.*);#\1;" /etc/apt/sources.list
+          sed -ri "s;^(\s*deb\s+)http://(httpredir|deb).debian.org;\1$DEB_ARCHIVE;" /etc/apt/sources.list
+          sed -ri "s;^(\s*deb\s+)http://security.debian.org/debian-security;\1$DEB_ARCHIVE_SECURITY;" /etc/apt/sources.list
+          sed -ri "s;^(\s*deb\s+)http://security.debian.org;\1$DEB_ARCHIVE_SECURITY;" /etc/apt/sources.list
+          echo '# Patched /etc/apt/sources.list'
+          cat /etc/apt/sources.list | grep -v '^#'
+      -
+        name: Prepare environment
+        if: matrix.prepare-command
+        run: ${{ matrix.prepare-command }}
+      -
+        name: Install libIP2Location
+        working-directory: /tmp
+        run: |
+          curl -sSLf "https://codeload.github.com/chrislim2888/IP2Location-C-Library/tar.gz/$LIBIP2LOCATION_VERSION" | tar xz
+          cd IP2Location-C-Library-*
+          autoreconf -fiv
+          ./configure
+          make -j$(nproc)
+          (cd data && perl ip-country.pl)
+          make check
+          make install
+          ldconfig || true
+          cd ..
+          rm -rf IP2Location-C-Library-*
+      - 
+        name: Checkout repository
+        uses: actions/checkout@v4
+      -
+        name: Create PECL package
+        run: |
+          pecl package
+          mv ip2location-*.tgz /tmp/ip2location.tgz
+      -
+        name: Install PECL package
+        working-directory: /tmp
+        run: |
+          pecl install ./ip2location.tgz
+      -
+        name: Cleanup environment
+        if: matrix.cleanup-command
+        run: ${{ matrix.cleanup-command }}
+      -
+        name: Enable extension
+        run: docker-php-ext-enable ip2location
+      -
+        name: Inspect extension
+        run: php --ri ip2location
