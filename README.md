@@ -31,6 +31,16 @@ To compile it, you will need to have the ip2location c library (version 8.x) ins
 For details installation instructions for PHP PECL extensions, please see:
 http://www.php.net/manual/en/install.pecl.php
 
+
+
+### Install Using PIE (PHP Installer for Extensions)
+
+```
+pie install ip2location/ip2location-pie
+```
+
+
+
 # Sample BIN Databases
 * Download free IP2Location LITE databases at [https://lite.ip2location.com](https://lite.ip2location.com)
 * Download IP2Location sample databases at [https://www.ip2location.com/developers](https://www.ip2location.com/developers)
